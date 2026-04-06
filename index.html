@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Riumi 🌸</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --sage: #7a9e7e;
+      --sage-light: #a8c5a0;
+      --sage-pale: #d4e8d0;
+      --blush: #f2b8c6;
+      --blush-deep: #e8879e;
+      --petal-yellow: #f7e08a;
+      --petal-orange: #f5a26b;
+      --cream: #fdf8f0;
+      --warm-white: #fffdf7;
+      --earth: #6b5344;
+      --earth-light: #a0826d;
+      --text-dark: #3a2e28;
+      --text-mid: #6b5a52;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--cream);
+      font-family: 'Lora', Georgia, serif;
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ─── PETALS ─── */
+    .petal-container {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .petal {
+      position: absolute;
+      top: -60px;
+      border-radius: 50% 0 50% 0;
+      opacity: 0;
+      animation: fall linear infinite;
+    }
+    @keyframes fall {
+      0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0; }
+      5%   { opacity: 0.65; }
+      90%  { opacity: 0.45; }
+      100% { transform: translateY(110vh) rotate(720deg) translateX(40px); opacity: 0; }
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+      background:
+        radial-gradient(ellipse at 30% 20%, #e8f5e4 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 80%, #fde8f0 0%, transparent 60%),
+        radial-gradient(ellipse at 60% 40%, #fdf3d0 0%, transparent 50%),
+        var(--cream);
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .badge {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--sage);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.3s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      font-weight: 700;
+      line-height: 1.0;
+      color: var(--earth);
+      opacity: 0;
+      animation: fadeUp 1s ease 0.5s forwards;
+    }
+    .hero-title span {
+      color: var(--blush-deep);
+      font-style: italic;
+    }
+
+    .hero-subtitle {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      color: var(--text-mid);
+      margin-top: 18px;
+      max-width: 480px;
+      line-height: 1.7;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.8s forwards;
+    }
+
+    .gerbera-hero {
+      width: clamp(120px, 20vw, 200px);
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.2s forwards;
+      filter: drop-shadow(0 8px 24px rgba(232,135,158,0.25));
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 36px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 0;
+      animation: fadeUp 1s ease 1.4s forwards;
+    }
+    .scroll-hint span {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--earth-light);
+    }
+    .scroll-hint .arrow {
+      width: 20px; height: 20px;
+      border-right: 2px solid var(--sage);
+      border-bottom: 2px solid var(--sage);
+      transform: rotate(45deg);
+      animation: bounce 1.6s ease-in-out infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: rotate(45deg) translateY(0); }
+      50%       { transform: rotate(45deg) translateY(6px); }
+    }
+
+    /* ─── SECTIONS ─── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 80px 20px;
+    }
+    .section-inner {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* ─── DIVIDER ─── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 0 auto 48px;
+      max-width: 340px;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+    }
+    .divider::before { background: linear-gradient(to right, transparent, var(--sage-light)); }
+    .divider::after  { background: linear-gradient(to left,  transparent, var(--sage-light)); }
+    .divider-flower  { font-size: 1.4rem; }
+
+    /* ─── QUOTE ─── */
+    .quote-section {
+      background: linear-gradient(135deg, #f0f8ee 0%, #fdf0f5 100%);
+      border-top: 1px solid rgba(168,197,160,0.3);
+      border-bottom: 1px solid rgba(168,197,160,0.3);
+    }
+    blockquote {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+      line-height: 1.75;
+      color: var(--earth);
+      text-align: center;
+      position: relative;
+      padding: 0 40px;
+    }
+    blockquote::before {
+      content: '\201C';
+      font-size: 6rem;
+      color: var(--blush);
+      position: absolute;
+      top: -30px; left: -10px;
+      line-height: 1;
+      font-family: 'Playfair Display', serif;
+    }
+    blockquote cite {
+      display: block;
+      margin-top: 20px;
+      font-size: 0.85rem;
+      font-style: normal;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--sage);
+    }
+
+    /* ─── CARDS ─── */
+    .letters-section { background: var(--warm-white); }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      color: var(--earth);
+      text-align: center;
+      margin-bottom: 48px;
+      line-height: 1.2;
+    }
+    .section-title em { color: var(--blush-deep); }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 32px 28px;
+      border: 1px solid rgba(168,197,160,0.25);
+      box-shadow: 0 4px 24px rgba(107,83,68,0.07);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 80px; height: 80px;
+      background: radial-gradient(circle at bottom right, rgba(242,184,198,0.18), transparent 70%);
+      pointer-events: none;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(107,83,68,0.13);
+    }
+    .card-icon { font-size: 2rem; margin-bottom: 14px; display: block; }
+    .card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--earth);
+      margin-bottom: 10px;
+    }
+    .card p { font-size: 0.95rem; line-height: 1.75; color: var(--text-mid); }
+
+    /* ─── POEM ─── */
+    .poem-section {
+      background: linear-gradient(160deg, #e8f5e4 0%, #fde8f0 50%, #fdf8f0 100%);
+    }
+    .poem-wrap { max-width: 520px; margin: 0 auto; text-align: center; }
+    .poem-wrap p {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      line-height: 2.2;
+      color: var(--earth);
+    }
+    .poem-wrap .poem-name {
+      display: inline-block;
+      margin-top: 36px;
+      font-style: normal;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sage);
+    }
+
+    /* ─── GARDEN ─── */
+    .garden-section { background: var(--cream); text-align: center; }
+    .flower-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 16px;
+    }
+    .flower-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .flower-item.visible { opacity: 1; transform: translateY(0); }
+    .flower-item svg {
+      width: 90px; height: 90px;
+      filter: drop-shadow(0 4px 12px rgba(107,83,68,0.15));
+      transition: transform 0.4s ease;
+    }
+    .flower-item:hover svg { transform: scale(1.12) rotate(-5deg); }
+    .flower-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--earth-light);
+    }
+
+    /* ─── TIMELINE ─── */
+    .timeline-section {
+      background: linear-gradient(to bottom, var(--warm-white), var(--cream));
+    }
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px; bottom: 8px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--sage-light), var(--blush), var(--sage-light));
+      border-radius: 2px;
+    }
+    .timeline-item {
+      position: relative;
+      padding: 0 0 36px 28px;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .timeline-item.visible { opacity: 1; transform: translateX(0); }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -7px; top: 6px;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--blush-deep);
+      border: 3px solid white;
+      box-shadow: 0 0 0 2px var(--blush-deep);
+    }
+    .timeline-date {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 4px;
+    }
+    .timeline-item h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--earth);
+      margin-bottom: 4px;
+    }
+    .timeline-item p { font-size: 0.9rem; color: var(--text-mid); line-height: 1.65; }
+
+    /* ─── FINAL ─── */
+    .final-section {
+      background: linear-gradient(160deg, #d4e8d0 0%, #f9d8e5 60%, #fdf3d0 100%);
+      text-align: center;
+      padding: 100px 20px;
+    }
+    .final-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 6vw, 4rem);
+      color: var(--earth);
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+    .final-title em { color: var(--blush-deep); }
+    .final-text {
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      color: var(--text-mid);
+      max-width: 480px;
+      margin: 0 auto 40px;
+      line-height: 1.85;
+    }
+    .sig {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.4rem;
+      color: var(--earth);
+    }
+    .hearts {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 28px;
+      font-size: 1.6rem;
+    }
+    .heart { display: inline-block; animation: heartbeat 1.4s ease-in-out infinite; }
+    .heart:nth-child(2) { animation-delay: 0.15s; }
+    .heart:nth-child(3) { animation-delay: 0.30s; }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      14%       { transform: scale(1.25); }
+      28%       { transform: scale(1); }
+      42%       { transform: scale(1.15); }
+      56%       { transform: scale(1); }
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center;
+      padding: 28px 20px;
+      background: var(--earth);
+      color: rgba(255,255,255,0.55);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+    }
+
+    /* ─── KEYFRAMES ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 500px) {
+      blockquote { padding: 0 20px; }
+      .cards-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="petal-container" id="petals"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <svg class="gerbera-hero" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="cg" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#f5a26b"/>
+        <stop offset="100%" stop-color="#e8697a"/>
+      </radialGradient>
+    </defs>
+    <g transform="translate(100,100)">
+      <ellipse rx="11" ry="40" fill="#f7e08a" transform="rotate(0)     translate(0,-54)"/>
+      <ellipse rx="11" ry="40" fill="#f5a26b" transform="rotate(22.5)  translate(0,-54)"/>
+      <ellipse rx="11" ry="40" fill="#f7e08a" transform="rotate(45)    translate(0,-54)"/>
+      <ellipse rx="11" ry="40" fill="#f5a26b" transform="rotate(67.5)  translate(0,-54)"/>
+      <ellipse rx="11" ry="40" fill="#f7e08a" transform="rotate(90)    translate(0,-54)"/>
+      <ellipse rx="11" ry="40" fill="#f5a26b" transform="rotate(112.5) translate(0,-54)"/>
+      <ellipse rx="11" ry="40" fill="#f7e08a" transform="rotate(135)   translate(0,-54)"/>
+      <ellipse rx="11" ry="40" fill="#f5a26b" transform="rotate(157.5) translate(0,-54)"/>
+      <ellipse rx="11" ry="40" fill="#f7e08a" transform="rotate(180)   translate(0,-54)"/>
+      <ellipse rx="11" ry="40" fill="#f5a26b" transform="rotate(202.5) translate(0,-54)"/>
+      <ellipse rx="11" ry="40" fill="#f7e08a" transform="rotate(225)   translate(0,-54)"/>
+      <ellipse rx="11" ry="40" fill="#f5a26b" transform="rotate(247.5) translate(0,-54)"/>
+      <ellipse rx="11" ry="40" fill="#f7e08a" transform="rotate(270)   translate(0,-54)"/>
+      <ellipse rx="11" ry="40" fill="#f5a26b" transform="rotate(292.5) translate(0,-54)"/>
+      <ellipse rx="11" ry="40" fill="#f7e08a" transform="rotate(315)   translate(0,-54)"/>
+      <ellipse rx="11" ry="40" fill="#f5a26b" transform="rotate(337.5) translate(0,-54)"/>
+      <ellipse rx="7" ry="26" fill="#e8879e" transform="rotate(11.25)  translate(0,-28)"/>
+      <ellipse rx="7" ry="26" fill="#f2b8c6" transform="rotate(33.75)  translate(0,-28)"/>
+      <ellipse rx="7" ry="26" fill="#e8879e" transform="rotate(56.25)  translate(0,-28)"/>
+      <ellipse rx="7" ry="26" fill="#f2b8c6" transform="rotate(78.75)  translate(0,-28)"/>
+      <ellipse rx="7" ry="26" fill="#e8879e" transform="rotate(101.25) translate(0,-28)"/>
+      <ellipse rx="7" ry="26" fill="#f2b8c6" transform="rotate(123.75) translate(0,-28)"/>
+      <ellipse rx="7" ry="26" fill="#e8879e" transform="rotate(146.25) translate(0,-28)"/>
+      <ellipse rx="7" ry="26" fill="#f2b8c6" transform="rotate(168.75) translate(0,-28)"/>
+      <ellipse rx="7" ry="26" fill="#e8879e" transform="rotate(191.25) translate(0,-28)"/>
+      <ellipse rx="7" ry="26" fill="#f2b8c6" transform="rotate(213.75) translate(0,-28)"/>
+      <ellipse rx="7" ry="26" fill="#e8879e" transform="rotate(236.25) translate(0,-28)"/>
+      <ellipse rx="7" ry="26" fill="#f2b8c6" transform="rotate(258.75) translate(0,-28)"/>
+      <ellipse rx="7" ry="26" fill="#e8879e" transform="rotate(281.25) translate(0,-28)"/>
+      <ellipse rx="7" ry="26" fill="#f2b8c6" transform="rotate(303.75) translate(0,-28)"/>
+      <ellipse rx="7" ry="26" fill="#e8879e" transform="rotate(326.25) translate(0,-28)"/>
+      <ellipse rx="7" ry="26" fill="#f2b8c6" transform="rotate(348.75) translate(0,-28)"/>
+      <circle r="18" fill="url(#cg)"/>
+      <circle r="11" fill="#c0392b" opacity="0.6"/>
+      <circle r="6"  fill="#8b1e2d" opacity="0.5"/>
+    </g>
+  </svg>
+
+  <p class="badge">uma mensagem do Rian para a Ayumi</p>
+  <h1 class="hero-title">Para a minha<br/><span>Ayumi</span></h1>
+  <p class="hero-subtitle">Existe uma palavra pra você, pra nós dois juntos — <em>Riumi</em> — e ela carrega tudo.</p>
+
+  <div class="scroll-hint">
+    <span>rolar</span>
+    <div class="arrow"></div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote-section">
+  <div class="section-inner">
+    <div class="divider"><span class="divider-flower">🌸</span></div>
+    <blockquote>
+      Amar você não foi uma escolha que eu fiz —<br/>
+      foi algo que simplesmente aconteceu,<br/>
+      como flores que brotam na primavera<br/>
+      sem pedir licença.
+      <cite>— Rian</cite>
+    </blockquote>
+  </div>
+</section>
+
+<!-- CARDS -->
+<section class="letters-section">
+  <div class="section-inner">
+    <h2 class="section-title">Coisas que eu <em>amo</em> em você</h2>
+    <div class="cards-grid">
+      <div class="card">
+        <span class="card-icon">🌺</span>
+        <h3>Do seu jeito de ser</h3>
+        <p>Tem algo em você que ilumina qualquer ambiente. Você não precisa nem falar — sua presença já transforma o lugar.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">✨</span>
+        <h3>Da sua força</h3>
+        <p>Você carrega coisas com uma leveza que me impressiona. Eu vejo o quanto você é forte, mesmo quando não percebe.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🍃</span>
+        <h3>Do seu cuidado</h3>
+        <p>A forma como você cuida de quem ama — nos pequenos gestos, nas palavras certas na hora certa — isso é raro, Ayumi.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🌼</span>
+        <h3>Do seu sorriso</h3>
+        <p>Cada vez que você sorri, eu entendo por que poetas escrevem poemas. É o tipo de coisa que a gente quer guardar pra sempre.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">💛</span>
+        <h3>Da nossa cumplicidade</h3>
+        <p>Riumi não é só um apelido fofo — é o nome do que a gente construiu juntos. Um universo só nosso.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🌷</span>
+        <h3>De tudo mais</h3>
+        <p>De quando você ri das minhas piadas ruins. De quando você me olha e eu sei que tudo vai ficar bem. De você, simplesmente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POEM -->
+<section class="poem-section">
+  <div class="section-inner">
+    <div class="divider"><span class="divider-flower">🌻</span></div>
+    <div class="poem-wrap">
+      <p>
+        Você é o cheiro de terra molhada<br/>
+        depois da chuva de março.<br/>
+        É gérbera num copo de água<br/>
+        na janela da manhã.<br/><br/>
+
+        É o nome que eu repito baixinho<br/>
+        quando estou sozinho e feliz.<br/>
+        É a cor que faltava no quadro<br/>
+        que eu nem sabia que estava pintando.<br/><br/>
+
+        Você, Ayumi,<br/>
+        és a primavera que eu escolho<br/>
+        todo dia.
+      </p>
+      <span class="poem-name">— do Rian, com amor 🌿</span>
+    </div>
+  </div>
+</section>
+
+<!-- GARDEN -->
+<section class="garden-section">
+  <div class="section-inner">
+    <h2 class="section-title">Um jardim <em>só para você</em></h2>
+    <div class="flower-row" id="flowerRow">
+
+      <div class="flower-item">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(60,60)">
+            <ellipse rx="8" ry="28" fill="#f2b8c6" transform="rotate(0)   translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#e8879e" transform="rotate(30)  translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#f2b8c6" transform="rotate(60)  translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#e8879e" transform="rotate(90)  translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#f2b8c6" transform="rotate(120) translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#e8879e" transform="rotate(150) translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#f2b8c6" transform="rotate(180) translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#e8879e" transform="rotate(210) translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#f2b8c6" transform="rotate(240) translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#e8879e" transform="rotate(270) translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#f2b8c6" transform="rotate(300) translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#e8879e" transform="rotate(330) translate(0,-32)"/>
+            <circle r="13" fill="#c0392b"/>
+            <circle r="7"  fill="#8b1e2d" opacity="0.7"/>
+          </g>
+        </svg>
+        <span class="flower-label">Gérbera rosa</span>
+      </div>
+
+      <div class="flower-item">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(60,60)">
+            <ellipse rx="8" ry="28" fill="#f7e08a" transform="rotate(0)   translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#f5c842" transform="rotate(30)  translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#f7e08a" transform="rotate(60)  translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#f5c842" transform="rotate(90)  translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#f7e08a" transform="rotate(120) translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#f5c842" transform="rotate(150) translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#f7e08a" transform="rotate(180) translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#f5c842" transform="rotate(210) translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#f7e08a" transform="rotate(240) translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#f5c842" transform="rotate(270) translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#f7e08a" transform="rotate(300) translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#f5c842" transform="rotate(330) translate(0,-32)"/>
+            <circle r="13" fill="#b8860b"/>
+            <circle r="7"  fill="#8b6914" opacity="0.7"/>
+          </g>
+        </svg>
+        <span class="flower-label">Gérbera amarela</span>
+      </div>
+
+      <div class="flower-item">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(60,60)">
+            <ellipse rx="8" ry="28" fill="#f5a26b" transform="rotate(0)   translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#e8697a" transform="rotate(30)  translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#f5a26b" transform="rotate(60)  translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#e8697a" transform="rotate(90)  translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#f5a26b" transform="rotate(120) translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#e8697a" transform="rotate(150) translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#f5a26b" transform="rotate(180) translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#e8697a" transform="rotate(210) translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#f5a26b" transform="rotate(240) translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#e8697a" transform="rotate(270) translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#f5a26b" transform="rotate(300) translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#e8697a" transform="rotate(330) translate(0,-32)"/>
+            <circle r="13" fill="#c0392b"/>
+            <circle r="7"  fill="#8b1e2d" opacity="0.7"/>
+          </g>
+        </svg>
+        <span class="flower-label">Gérbera laranja</span>
+      </div>
+
+      <div class="flower-item">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(60,60)">
+            <ellipse rx="8" ry="28" fill="#e8e0f0" transform="rotate(0)   translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#c9b8e8" transform="rotate(30)  translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#e8e0f0" transform="rotate(60)  translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#c9b8e8" transform="rotate(90)  translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#e8e0f0" transform="rotate(120) translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#c9b8e8" transform="rotate(150) translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#e8e0f0" transform="rotate(180) translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#c9b8e8" transform="rotate(210) translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#e8e0f0" transform="rotate(240) translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#c9b8e8" transform="rotate(270) translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#e8e0f0" transform="rotate(300) translate(0,-32)"/>
+            <ellipse rx="8" ry="28" fill="#c9b8e8" transform="rotate(330) translate(0,-32)"/>
+            <circle r="13" fill="#7a5ca0"/>
+            <circle r="7"  fill="#4a3070" opacity="0.7"/>
+          </g>
+        </svg>
+        <span class="flower-label">Gérbera lilás</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+  <div class="section-inner">
+    <h2 class="section-title">Pequenos momentos,<br/><em>grandes lembranças</em></h2>
+    <div class="timeline" id="timeline">
+      <div class="timeline-item">
+        <p class="timeline-date">O começo</p>
+        <h4>Quando tudo começou ✨</h4>
+        <p>A gente nem sabia ainda o que estava construindo. Mas tinha algo ali — uma faísca que nenhum dos dois queria apagar.</p>
+      </div>
+      <div class="timeline-item">
+        <p class="timeline-date">No meio do caminho</p>
+        <h4>Quando virou "a gente" 🌿</h4>
+        <p>Teve um momento — talvez você se lembre, talvez não — em que eu percebi: você não era mais só uma pessoa na minha vida. Era a pessoa.</p>
+      </div>
+      <div class="timeline-item">
+        <p class="timeline-date">Hoje</p>
+        <h4>Riumi 🌸</h4>
+        <p>Juntamos nossos nomes e virou uma coisa só. É exatamente assim que eu te vejo — não dá mais imaginar sem.</p>
+      </div>
+      <div class="timeline-item">
+        <p class="timeline-date">Para sempre</p>
+        <h4>O que eu quero 💛</h4>
+        <p>Mais cafés da manhã. Mais risadas sem motivo. Mais flores na janela. Mais você, em todos os dias que ainda vierem.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section class="final-section">
+  <div class="section-inner">
+    <div class="divider"><span class="divider-flower">🌺</span></div>
+    <h2 class="final-title">Eu te amo,<br/><em>Ayumi.</em></h2>
+    <p class="final-text">
+      Não do jeito bonito dos filmes — do jeito real, do jeito que fica,
+      do jeito que escolho você de novo todo dia, até nos dias nublados.
+    </p>
+    <p class="sig">Com todo o meu amor, Rian 🌿</p>
+    <div class="hearts">
+      <span class="heart">🌸</span>
+      <span class="heart">💛</span>
+      <span class="heart">🌸</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  feito com amor por Rian &bull; para a Ayumi &bull; Riumi 🌸
+</footer>
+
+<script>
+  // Falling petals
+  const container = document.getElementById('petals');
+  const colors = ['#f2b8c6','#f7e08a','#f5a26b','#a8c5a0','#e8879e','#c9b8e8','#f5c842'];
+  for (let i = 0; i < 28; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    const size = Math.random() * 12 + 7;
+    p.style.cssText = `
+      width:${size}px; height:${size*0.65}px;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      left:${Math.random()*100}%;
+      animation-duration:${Math.random()*8+7}s;
+      animation-delay:${Math.random()*10}s;
+    `;
+    container.appendChild(p);
+  }
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.18 });
+
+  document.querySelectorAll('.flower-item, .timeline-item').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.13}s`;
+    obs.observe(el);
+  });
+</script>
+</body>
+</html>
