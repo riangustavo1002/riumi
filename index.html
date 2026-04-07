@@ -404,6 +404,170 @@
       56%       { transform: scale(1); }
     }
 
+    /* ─── PHOTOS ─── */
+    .photos-section {
+      background: linear-gradient(160deg, #fdf0f5 0%, #f0f8ee 100%);
+    }
+
+    /* destaque — foto grande com legenda */
+    .photo-hero {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      margin-bottom: 32px;
+      box-shadow: 0 12px 48px rgba(107,83,68,0.18);
+      aspect-ratio: 4/3;
+    }
+    .photo-hero img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .photo-hero:hover img { transform: scale(1.04); }
+    .photo-hero-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 28px 24px 20px;
+      background: linear-gradient(to top, rgba(58,46,40,0.78), transparent);
+      color: white;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      line-height: 1.4;
+    }
+
+    /* grade — fotos menores */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .photo-card {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 1;
+      box-shadow: 0 4px 20px rgba(107,83,68,0.12);
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.35s ease;
+    }
+    .photo-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .photo-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .photo-card:hover img { transform: scale(1.08); }
+    .photo-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(58,46,40,0.65), transparent 55%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      display: flex;
+      align-items: flex-end;
+      padding: 14px;
+    }
+    .photo-card:hover .photo-card-overlay { opacity: 1; }
+    .photo-card-overlay span {
+      color: white;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      line-height: 1.3;
+    }
+
+    /* lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(20,14,10,0.92);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: 16px;
+      object-fit: contain;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 20px; right: 24px;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      line-height: 1;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+    .lightbox-close:hover { opacity: 1; }
+    .lightbox-caption {
+      position: absolute;
+      bottom: 28px;
+      color: rgba(255,255,255,0.75);
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1rem;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    /* corrida section */
+    .corrida-section {
+      background: var(--warm-white);
+    }
+    .corrida-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .corrida-card {
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 3/4;
+      box-shadow: 0 6px 28px rgba(107,83,68,0.14);
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .corrida-card.visible { opacity: 1; transform: translateY(0); }
+    .corrida-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .corrida-card:hover img { transform: scale(1.05); }
+    .corrida-card-label {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 20px 16px 14px;
+      background: linear-gradient(to top, rgba(58,46,40,0.72), transparent);
+      color: white;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 480px) {
+      .corrida-grid { grid-template-columns: 1fr; }
+      .photo-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
     /* ─── FOOTER ─── */
     footer {
       text-align: center;
@@ -562,6 +726,97 @@
         todo dia.
       </p>
       <span class="poem-name">— do Rian, com amor 🌿</span>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-close" id="lbClose">&times;</span>
+  <img id="lbImg" src="" alt=""/>
+  <p class="lightbox-caption" id="lbCaption"></p>
+</div>
+
+<!-- PHOTOS — você sendo linda -->
+<section class="photos-section">
+  <div class="section-inner">
+    <div class="divider"><span class="divider-flower">🌸</span></div>
+    <h2 class="section-title">Você sendo <em>linda</em></h2>
+
+    <!-- foto destaque -->
+    <div class="photo-hero" onclick="openLightbox(this)">
+      <img src="https://raw.githubusercontent.com/riangustavo1002/riumi/main/photos/voce%20sendo%20linda.jpeg"
+           alt="Você sendo linda" loading="lazy"/>
+      <div class="photo-hero-caption">você sendo linda — e eu, aqui do lado, babando 🌸</div>
+    </div>
+
+    <!-- grade com as outras -->
+    <div class="photo-grid">
+      <div class="photo-card" onclick="openLightbox(this)">
+        <img src="https://raw.githubusercontent.com/riangustavo1002/riumi/main/photos/voce%20ta%20linda%20aqui.jpeg"
+             alt="Você tá linda aqui" loading="lazy"/>
+        <div class="photo-card-overlay"><span>você tá linda aqui</span></div>
+      </div>
+      <div class="photo-card" onclick="openLightbox(this)">
+        <img src="https://raw.githubusercontent.com/riangustavo1002/riumi/main/photos/acho%20que%20voce%20gosta%20dessa%20foto.jpeg"
+             alt="Acho que você gosta dessa foto" loading="lazy"/>
+        <div class="photo-card-overlay"><span>acho que você gosta dessa foto</span></div>
+      </div>
+      <div class="photo-card" onclick="openLightbox(this)">
+        <img src="https://raw.githubusercontent.com/riangustavo1002/riumi/main/photos/primeira%20boa%20foto.jpeg"
+             alt="Primeira boa foto" loading="lazy"/>
+        <div class="photo-card-overlay"><span>primeira boa foto</span></div>
+      </div>
+      <div class="photo-card" onclick="openLightbox(this)">
+        <img src="https://raw.githubusercontent.com/riangustavo1002/riumi/main/photos/segunda%20boa%20foto.jpeg"
+             alt="Segunda boa foto" loading="lazy"/>
+        <div class="photo-card-overlay"><span>segunda boa foto</span></div>
+      </div>
+      <div class="photo-card" onclick="openLightbox(this)">
+        <img src="https://raw.githubusercontent.com/riangustavo1002/riumi/main/photos/uma%20boa%20foto%20de%20verdade%20agora%20a%20melhor%20que%20t....jpeg"
+             alt="A melhor foto de verdade" loading="lazy"/>
+        <div class="photo-card-overlay"><span>a melhor foto de verdade 🥹</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTOS — beijinhos & namorados -->
+<section class="letters-section" style="padding-top: 0;">
+  <div class="section-inner">
+    <div class="divider"><span class="divider-flower">💛</span></div>
+    <h2 class="section-title">A gente <em>junto</em></h2>
+    <div class="photo-grid">
+      <div class="photo-card" style="aspect-ratio:4/3; grid-column: span 2;" onclick="openLightbox(this)">
+        <img src="https://raw.githubusercontent.com/riangustavo1002/riumi/main/photos/eeeeeba%20namorados%20.jpeg"
+             alt="Eeeeeba namorados" loading="lazy"/>
+        <div class="photo-card-overlay"><span>eeeeeba namorados 🎉</span></div>
+      </div>
+      <div class="photo-card" style="aspect-ratio:4/3; grid-column: span 2;" onclick="openLightbox(this)">
+        <img src="https://raw.githubusercontent.com/riangustavo1002/riumi/main/photos/beijinhos.jpeg"
+             alt="Beijinhos" loading="lazy"/>
+        <div class="photo-card-overlay"><span>beijinhos 😘</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTOS — corrida -->
+<section class="corrida-section">
+  <div class="section-inner">
+    <div class="divider"><span class="divider-flower">🌿</span></div>
+    <h2 class="section-title">Nossa <em>primeira corrida</em></h2>
+    <div class="corrida-grid">
+      <div class="corrida-card" onclick="openLightbox(this)">
+        <img src="https://raw.githubusercontent.com/riangustavo1002/riumi/main/photos/nossa%20primeira%20corrida.jpeg"
+             alt="Nossa primeira corrida" loading="lazy"/>
+        <div class="corrida-card-label">nossa primeira corrida juntos 🏃</div>
+      </div>
+      <div class="corrida-card" onclick="openLightbox(this)">
+        <img src="https://raw.githubusercontent.com/riangustavo1002/riumi/main/photos/eu%20gosto%20dessa%20sua%20foto%20tirada%20no%20dia%20da%20corrida....jpeg"
+             alt="Foto da corrida favorita" loading="lazy"/>
+        <div class="corrida-card-label">eu gosto muito dessa sua foto 🥹</div>
+      </div>
     </div>
   </div>
 </section>
@@ -738,10 +993,30 @@
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.18 });
 
+  // Lightbox
+  function openLightbox(el) {
+    const img = el.querySelector('img');
+    const caption = el.querySelector('.photo-hero-caption, .photo-card-overlay span, .corrida-card-label');
+    document.getElementById('lbImg').src = img.src;
+    document.getElementById('lbCaption').textContent = caption ? caption.textContent : '';
+    document.getElementById('lightbox').classList.add('open');
+  }
+  document.getElementById('lbClose').onclick = () =>
+    document.getElementById('lightbox').classList.remove('open');
+  document.getElementById('lightbox').onclick = (e) => {
+    if (e.target === e.currentTarget) e.currentTarget.classList.remove('open');
+  };
+
   document.querySelectorAll('.flower-item, .timeline-item').forEach((el, i) => {
     el.style.transitionDelay = `${i * 0.13}s`;
     obs.observe(el);
   });
+
+  document.querySelectorAll('.photo-card, .corrida-card').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.1}s`;
+    obs.observe(el);
+  });
+
 </script>
 </body>
 </html>
